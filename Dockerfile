@@ -1,6 +1,11 @@
 FROM ruby:3.1.3
 # RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
 WORKDIR /myapp
+
+COPY ardy_kafka-0.1.0.gem /myapp/
+RUN mkdir -p /local_gems/
+RUN gem install -i /local_gems /myapp/ardy_kafka-0.1.0.gem
+
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN gem install bundler:2.3.26
